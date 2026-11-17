@@ -28,17 +28,9 @@ test.describe("тесты главной страницы", () => {
     await expect(
       page.getByRole("button", { name: "Switch between dark and light" }),
     ).toBeVisible();
-    console.log(
-      await page.locator("button").evaluateAll((buttons) =>
-        buttons.map((button) => ({
-          text: button.textContent?.trim(),
-          ariaLabel: button.getAttribute("aria-label"),
-          title: button.getAttribute("title"),
-        })),
-      ),
-    );
+
     await expect(
-      page.getByRole("button", { name: "Search (Meta+k)" }),
+      page.getByRole("button", { name: /Search \((Meta|Control)\+k\)/ }),
     ).toBeVisible();
   });
 

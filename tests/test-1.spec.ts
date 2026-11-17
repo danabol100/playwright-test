@@ -5,9 +5,11 @@ test.describe("тесты главной страницы", () => {
     await page.goto("https://playwright.dev/");
   });
   test("Проверка отображения элементов Heder", async ({ page }) => {
-    await expect(
-      page.getByRole("link", { name: "Playwright logo Playwright" }),
-    ).toBeVisible();
+    test.step("Проверка отображения лого Playwraight logo", async () => {
+      await expect(
+        page.getByRole("link", { name: "Playwright logo Playwright" }),
+      ).toBeVisible();
+    });
     await expect(page.getByRole("link", { name: "Docs" })).toBeVisible();
     await expect(
       page.getByRole("link", { name: "MCP", exact: true }),
@@ -26,6 +28,15 @@ test.describe("тесты главной страницы", () => {
     await expect(
       page.getByRole("button", { name: "Switch between dark and light" }),
     ).toBeVisible();
+    console.log(
+      await page.locator("button").evaluateAll((buttons) =>
+        buttons.map((button) => ({
+          text: button.textContent?.trim(),
+          ariaLabel: button.getAttribute("aria-label"),
+          title: button.getAttribute("title"),
+        })),
+      ),
+    );
     await expect(
       page.getByRole("button", { name: "Search (Meta+k)" }),
     ).toBeVisible();

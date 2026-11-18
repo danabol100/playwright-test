@@ -92,6 +92,18 @@ const elements: Elements[] = [
       page.getByRole("button", { name: /Search \((Meta|Control)\+k\)/ }),
     name: "Search",
   },
+  {
+    locator: (page: Page): Locator =>
+      page.getByRole("heading", { name: "Playwright enables reliable" }),
+    name: "Title",
+    text: "Playwright enables reliable web automation for testing, scripting, and AI agents.",
+  },
+  {
+    locator: (page: Page): Locator =>
+      page.getByRole("link", { name: "Get started" }),
+    name: "Get started",
+    text: "Get started",
+  },
 ];
 
 test.describe("тесты главной страницы", () => {
@@ -127,21 +139,5 @@ test.describe("тесты главной страницы", () => {
         });
       }
     });
-  });
-
-  test("Проверка заголовка страницы ", async ({ page }) => {
-    await expect(
-      page.getByRole("heading", { name: "Playwright enables reliable" }),
-    ).toBeVisible();
-    await expect(
-      page.getByRole("heading", { name: "Playwright enables reliable" }),
-    ).toContainText(
-      "Playwright enables reliable web automation for testing, scripting, and AI agents.",
-    );
-  });
-  test("Проверка кнопки get start ", async ({ page }) => {
-    await expect(page.getByRole("link", { name: "Get started" })).toBeVisible();
-
-    await expect(page.getByRole("banner")).toContainText("Get started");
   });
 });

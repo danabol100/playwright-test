@@ -105,6 +105,7 @@ const elements: Elements[] = [
     text: "Get started",
   },
 ];
+const lightModes = ["dark", "light"];
 
 test.describe("тесты главной страницы", () => {
   test.beforeEach(async ({ page }) => {
@@ -138,6 +139,14 @@ test.describe("тесты главной страницы", () => {
           );
         });
       }
+    });
+  });
+  lightModes.forEach((value) => {
+    test(`Проверка стилей активного ${value} мода`, async ({ page }) => {
+      await page.evaluate((value) => {
+        document.querySelector("html")?.setAttribute("data-theme", value);
+      }, value);
+      await expect(page).toHaveScreenshot(`pageWith${value}Mode.png`);
     });
   });
 });
